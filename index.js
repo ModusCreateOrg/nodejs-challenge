@@ -15,6 +15,7 @@ app.set('views', path.join(__dirname, 'app', 'views'));
 app.set('view engine', 'jade');
 app.use(express.static(path.join(__dirname, 'public')));
 
+/* Load routes */
 app.use('/', home_routes);
 app.use('/u', user_routes);
 app.use('/h', hash_routes);

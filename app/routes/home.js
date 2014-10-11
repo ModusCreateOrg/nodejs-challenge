@@ -4,6 +4,9 @@ router.get('/', function(req, res, next){
   res.render('index');
 });
 
+/* Redirect to '/u/' or '/h/' based on whether search string
+ * starts with '@' or '#'.
+ */
 router.get('/search', function(req, res, next){
   var query = req.query.q;
   if(query.match(/^@/))

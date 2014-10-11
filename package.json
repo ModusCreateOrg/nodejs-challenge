@@ -18,6 +18,8 @@
   "homepage": "https://github.com/akagr/nodejs-challenge",
   "dependencies": {
     "express": "^4.9.6",
-    "jade": "^1.7.0"
+    "socket.io": "^1.1.0",
+    "jade": "^1.7.0",
+    "twit": "^1.1.18"
   }
 }

@@ -1,6 +1,7 @@
 var express       = require('express'),
     Twit          = require('twit'),
     config        = require('./config.js'),
+    home_routes   = require('./app/routes/home.js'),
     user_routes   = require('./app/routes/users.js'),
     hash_routes   = require('./app/routes/hashes.js'),
     path          = require('path'),
@@ -14,6 +15,7 @@ app.set('views', path.join(__dirname, 'app', 'views'));
 app.set('view engine', 'jade');
 app.use(express.static(path.join(__dirname, 'public')));
 
+app.use('/', home_routes);
 app.use('/u', user_routes);
 app.use('/h', hash_routes);
 

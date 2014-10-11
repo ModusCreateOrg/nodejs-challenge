@@ -22,6 +22,6 @@ app.use('/h', hash_routes);
 
 socket_routes(io, twitter);
 
-server.listen(config.port, function(){
-  console.log('Server started on:' + config.port);
+server.listen(process.env.PORT || config.port, function(){
+  console.log('Server started on:' + process.env.PORT || config.port);
 });

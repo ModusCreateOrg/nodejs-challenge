@@ -1,0 +1,26 @@
+{
+  "name": "Twitter_Bot",
+  "version": "0.0.0",
+  "description": "A simple twitter search bot",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/akagr/nodejs-challenge.git"
+  },
+  "author": "Akash Agrawal",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/akagr/nodejs-challenge/issues"
+  },
+  "homepage": "https://github.com/akagr/nodejs-challenge",
+  "dependencies": {
+    "express": "^4.9.6",
+    "socket.io": "^1.1.0",
+    "jade": "^1.7.0",
+    "twit": "^1.1.18"
+  }
+}

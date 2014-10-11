@@ -1,4 +1,8 @@
 extend layout
 
 block content
-  | Hello
+  div(data-ng-controller='FeedsCtrl', data-ng-init='loadFeed(' + JSON.stringify(feedSrc) + ')')
+    ul
+      li(data-ng-repeat='tweet in tweets track by $index')
+        | {{tweet.text}}
+  script(src='/js/feeds.js')

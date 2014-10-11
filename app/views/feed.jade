@@ -1,8 +1,11 @@
 extend layout
 
 block content
-  div(data-ng-controller='FeedsCtrl', data-ng-init='loadFeed(' + JSON.stringify(feedSrc) + ')')
-    ul
-      li(data-ng-repeat='tweet in tweets track by $index')
-        | {{tweet.text}}
+  div.row(data-ng-controller='FeedsCtrl', data-ng-init='loadFeed(' + JSON.stringify(feedSrc) + ')')
+    h1= (feedSrc.type === 'users' ? '@' : '#') + feedSrc.value
+    div.well(data-ng-repeat='tweet in tweets track by $index')
+      img.img-circle(data-ng-src="{{tweet.user.profile_image_url}}")
+      = "  "
+      | {{tweet.text}}
+      div.text-muted {{tweet.created_at}}
   script(src='/js/feeds.js')

@@ -1,5 +1,12 @@
 extend layout
 
 block content
-  form(action='/search', method='get')
-    input(type="text", name="q", placeholder="Enter @username or #trend")
+  .jumbotron.text-center
+    h1 Twitter Bot
+    h4.text-muted A simple twitter search by @username or #trend
+    form.form-inline(action='/search', method='get', role='form')
+      .form-group
+        input.form-control(type="text", name="q", placeholder="@username or #trend")
+      = " "
+      .form-group
+        button.btn.btn-primary(type='submit') Get Tweets!

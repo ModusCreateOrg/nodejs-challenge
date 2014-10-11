@@ -23,32 +23,41 @@ var unsubscribe = function(data){
     delete room[data.value];
 };
 
+var refresh = {
+  users: function(name, props, io){
+    twitter.get('statuses/user_timeline', {
+      screen_name: name,
+      count: 5,
+      since_id: props.last_id
+    }, function(err, data, resp){
+      if(data && data.length) props.last_id = data[0].id;
+      io.to('users_' + name).emit('feed_update', data);
+    });
+  },
+  hashes: function(name, props, io){
+    twitter.get('search/tweets', {
+      q: '#' + name,
+      count: 5,
+      result_type: 'recent',
+      since_id: props.last_id
+    }, function(err, data, resp){
+      if(data && data.statuses.length) props.last_id = data.statuses[0].id;
+      io.to('hashes_' + name).emit('feed_update', data);
+    });
+  }
+};
+
 module.exports = function(io, twitter){
 
   setInterval(function(){
     for(var user in rooms.users){
-      twitter.get('statuses/user_timeline', {
-        screen_name: user,
-        count: 5,
-        since_id: rooms.users[user].last_id
-      }, function(err, data, resp){
-        if(data && data.length) rooms.users[user].last_id = data[0].id;
-        io.to('users_' + user).emit('feed_update', data);
-      });
+      refresh.users(user, rooms.users[user], io);
     }
   }, 30000);
 
   setInterval(function(){
     for(var hash in rooms.hashes){
-      twitter.get('search/tweets', {
-        q: '#' + hash,
-        count: 5,
-        result_type: 'recent',
-        since_id: rooms.hashes[hash].last_id
-      }, function(err, data, resp){
-        if(data && data.statuses.length) rooms.hashes[hash].last_id = data.statuses[0].id;
-        io.to('hashes_' + hash).emit('feed_update', data);
-      });
+      refresh.hashes(hash, rooms.hashes[hash], io);
     }
   }, 30000);
 
@@ -59,6 +68,7 @@ module.exports = function(io, twitter){
       subscription = data;
       subscribe(subscription);
       socket.join(data.type + '_' + data.value);
+      refresh[data.type](data.value, rooms[data.type][data.value], io);
     });
 
     socket.on('disconnect', function(){
